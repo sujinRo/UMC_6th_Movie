@@ -13,4 +13,8 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: 'Pretendard_Mid';
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }

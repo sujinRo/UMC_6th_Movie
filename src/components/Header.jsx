@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
   height: 65px;
   background-color: rgb(37, 50, 100);
   z-index: 1;
-  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,16 +25,23 @@ const Lists = styled.div`
   margin-right: 20px;
 `;
 
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
 export default function Header() {
   return (
     <Container>
-      <Logo>UMC Movie</Logo>
+      <Logo>
+        <NavLink to="/">UMC Movie</NavLink>
+      </Logo>
       <Lists>
-        <div>회원가입</div>
-        <div>Popular</div>
-        <div>Now Playing</div>
-        <div>Top rated</div>
-        <div>Upcoming</div>
+        <NavLink to="/join">회원가입</NavLink>
+        <NavLink to="/popular">Popular</NavLink>
+        <NavLink to="/nowplaying">Now Playing</NavLink>
+        <NavLink to="/toprated">Top rated</NavLink>
+        <NavLink to="/upcoming">Upcoming</NavLink>
       </Lists>
     </Container>
   );

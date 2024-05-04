@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
 
 const Container = styled.div`
   color: white;
@@ -55,20 +54,17 @@ const FindBtn = styled.div`
 
 export default function MainPage() {
   return (
-    <>
-      <Header />
-      <Container>
-        <Banner>
-          <div>환영합니다</div>
-        </Banner>
-        <MovieBox>
-          <Title>📽️Find your movies!</Title>
-          <FindBox>
-            <Input className="input" />
-            <FindBtn>🔍</FindBtn>
-          </FindBox>
-        </MovieBox>
-      </Container>
-    </>
+    <Container>
+      <Banner>
+        <div>환영합니다</div>
+      </Banner>
+      <MovieBox>
+        <Title>📽️Find your movies!</Title>
+        <FindBox>
+          <Input className="input" />
+          <FindBtn>🔍</FindBtn>
+        </FindBox>
+      </MovieBox>
+    </Container>
   );
 }
