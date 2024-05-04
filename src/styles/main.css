@@ -1,0 +1,50 @@
+.container {
+  color: white;
+  width: 100vw;
+}
+
+.banner {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.movie_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+  gap: 35px;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.find_box {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.input {
+  width: 350px;
+  height: 35px;
+  border: transparent;
+  border-radius: 20px;
+}
+
+.find_btn {
+  width: 25px;
+  height: 25px;
+  border: transparent;
+  border-radius: 100%;
+  background-color: rgb(255, 253, 163);
+  text-align: center;
+}
