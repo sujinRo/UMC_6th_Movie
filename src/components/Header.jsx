@@ -21,21 +21,20 @@ const Logo = styled.div`
   margin-left: 20px;
 `;
 
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => (props.isLogin ? 'yellow' : 'white')};
+`;
+
 const Lists = styled.div`
   font-size: 14px;
   display: flex;
   gap: 40px;
   margin-right: 20px;
-`;
-
-const NavLink = styled(Link)`
-  text-decoration: none;
-  color: ${props => (props.isLogin ? 'yellow' : 'white')};
-  &:hover {
+  ${NavLink}:hover {
     font-size: 15px;
   }
 `;
-
 export default function Header() {
   const [isClicked, setIsClicked] = useState(false);
 

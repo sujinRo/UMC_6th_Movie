@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_KEY = '23129335d4e72895e00b227873f60824';
-const API_URL = 'https://api.themoviedb.org/3/movie/';
+export const API_KEY = '23129335d4e72895e00b227873f60824';
+export const API_URL = 'https://api.themoviedb.org/3/movie/';
 
 //nowPlayingList api
 export const getNowPlayingList = async () => {

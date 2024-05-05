@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { getUpComingList } from '../apis/Movie';
 import MovieBox from '../components/MovieBox';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   color: white;
@@ -38,11 +39,13 @@ export default function UpComingPage() {
         {movieList.map((item, idx) => {
           return (
             <div key={idx}>
-              <MovieBox
-                movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                title={item.title}
-                star={item.vote_average}
-              />
+              <Link to={`/movie/${item.title}`}>
+                <MovieBox
+                  movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  title={item.title}
+                  star={item.vote_average}
+                />
+              </Link>
             </div>
           );
         })}

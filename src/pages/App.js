@@ -7,6 +7,8 @@ import NowPlayingPage from '../pages/nowPlaying';
 import PopularPage from '../pages/popular';
 import TopRatedPage from '../pages/topRated';
 import UpComingPage from '../pages/upComing';
+import DetailPage from './detail';
+import ErrorPage from './error';
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
           <Route path="/popular" Component={PopularPage} />
           <Route path="/toprated" Component={TopRatedPage} />
           <Route path="/upcoming" Component={UpComingPage} />
+          <Route path="/movie/:title" Component={DetailPage} />
+          <Route path="*" Component={ErrorPage} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -7,6 +7,8 @@ const Container = styled.div`
   border: transparent;
   border-radius: 5px;
   background-color: rgb(48, 63, 123);
+  cursor: pointer;
+  color: white;
 `;
 
 const MovieImg = styled.img`
@@ -22,6 +24,8 @@ const MovieText = styled.div`
   margin-top: 8px;
   font-size: 15px;
   gap: 10px;
+  text-decoration: none;
+  border-bottom: none;
 `;
 
 const Title = styled.div`
