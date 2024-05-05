@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -24,27 +24,42 @@ const Logo = styled.div`
 const Lists = styled.div`
   font-size: 14px;
   display: flex;
-  gap: 25px;
+  gap: 40px;
   margin-right: 20px;
 `;
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: ${props => (props.isLogin ? 'yellow' : 'white')};
+  &:hover {
+    font-size: 15px;
+  }
 `;
 
 export default function Header() {
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
     <Container>
       <Logo>
         <NavLink to="/">UMC Movie</NavLink>
       </Logo>
       <Lists>
-        <NavLink to="/join">회원가입</NavLink>
-        <NavLink to="/popular">Popular</NavLink>
-        <NavLink to="/nowplaying">Now Playing</NavLink>
-        <NavLink to="/toprated">Top rated</NavLink>
-        <NavLink to="/upcoming">Upcoming</NavLink>
+        <NavLink to="/" isLogin={true} onClick={() => setIsClicked(!isClicked)}>
+          {isClicked ? '로그아웃' : '로그인'}
+        </NavLink>
+        <NavLink to="/popular" isLogin={false}>
+          Popular
+        </NavLink>
+        <NavLink to="/nowplaying" isLogin={false}>
+          Now Playing
+        </NavLink>
+        <NavLink to="/toprated" isLogin={false}>
+          Top rated
+        </NavLink>
+        <NavLink to="/upcoming" isLogin={false}>
+          Upcoming
+        </NavLink>
       </Lists>
     </Container>
   );
