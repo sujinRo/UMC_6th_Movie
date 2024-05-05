@@ -2,10 +2,22 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { getNowPlayingList } from '../apis/Movie';
+import MovieBox from '../components/MovieBox';
 
 const Container = styled.div`
   color: white;
   width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+`;
+
+const Box = styled.div`
+  width: 1260px;
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0;
 `;
 
 export default function NowPlayingPage() {
@@ -20,5 +32,21 @@ export default function NowPlayingPage() {
     },
   });
 
-  return <Container>{movieList.map(item => item.data)}</Container>;
+  return (
+    <Container>
+      <Box>
+        {movieList.map((item, idx) => {
+          return (
+            <div key={idx}>
+              <MovieBox
+                movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                title={item.title}
+                star={item.vote_average}
+              />
+            </div>
+          );
+        })}
+      </Box>
+    </Container>
+  );
 }

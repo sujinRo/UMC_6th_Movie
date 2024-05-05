@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../components/Header';
 import MainPage from '../pages/main';
 import JoinPage from '../pages/join';

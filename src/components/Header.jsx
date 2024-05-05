@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   width: 100%;
   height: 65px;
-  background-color: rgb(37, 50, 100);
+  background-color: rgb(32, 44, 91);
   z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 const Logo = styled.div`

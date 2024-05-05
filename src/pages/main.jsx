@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   color: white;
   width: 100vw;
+  margin-top: 65px;
 `;
 
 const Banner = styled.div`
@@ -50,6 +51,7 @@ const FindBtn = styled.div`
   border-radius: 100%;
   background-color: rgb(255, 253, 163);
   text-align: center;
+  cursor: pointer;
 `;
 
 export default function MainPage() {
