@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { API_KEY } from '../apis/Movie';
+import { getMovieList } from '../apis/Movie';
 import { useQuery } from 'react-query';
 
 const Container = styled.div`
@@ -67,14 +66,7 @@ export default function DetailPage() {
   const [movie, setMovie] = useState({});
   const star = [];
 
-  const getMovieList = async () => {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?query=${params.title}&api_key=${API_KEY}&language=ko-US&page=1`,
-    );
-    return response.data;
-  };
-
-  const movieDetailList = useQuery(['movieDetail', params.title], () => getMovieList(), {
+  const movieDetailList = useQuery(['movieDetail', params.title], () => getMovieList(params.title), {
     onSuccess: data => {
       console.log(data.results);
       setMovie(data.results);

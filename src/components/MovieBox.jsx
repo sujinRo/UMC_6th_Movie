@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 300px;
-  height: 550px;
+  width: ${props => (props.isSmall ? '238px' : '300px')};
+  height: ${props => (props.isSmall ? '450px' : '550px')};
   border: transparent;
   border-radius: 5px;
   background-color: rgb(48, 63, 123);
@@ -22,23 +22,23 @@ const MovieText = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 8px;
-  font-size: 15px;
-  gap: 10px;
+  font-size: ${props => (props.isSmall ? '5px' : '15px')};
+  gap: ${props => (props.isSmall ? '2px' : '10px')};
 `;
 
 const Title = styled.div`
-  width: 200px;
+  width: ${props => (props.isSmall ? '50px' : '200px')};
 `;
 
 const Star = styled.div`
-  width: 60px;
+  width: ${props => (props.isSmall ? '50px' : '60px')};
   display: flex;
   justify-content: flex-end;
 `;
 
-export default function MovieBox({ movieImage, title, star }) {
+export default function MovieBox({ movieImage, title, star, isSmall }) {
   return (
-    <Container>
+    <Container isSmall={isSmall}>
       <MovieImg src={movieImage} alt={title} className="movie_image" />
       <MovieText>
         <Title>{title}</Title>
