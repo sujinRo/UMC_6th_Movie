@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getMovieList } from '../apis/Movie';
 import { useQuery } from 'react-query';
 import MovieBox from '../components/MovieBox';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   color: white;
@@ -107,6 +108,14 @@ export default function MainPage() {
     setSearch(e.target.value);
   };
 
+  //debounce
+  function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+    };
+  }
+
   return (
     <Container>
       <Banner>
@@ -121,12 +130,14 @@ export default function MainPage() {
         {search.trim() !== '' ? (
           <MovieList>
             {movieList.map((key, index) => (
-              <MovieBox
-                movieImage={`https://image.tmdb.org/t/p/w500${movieList[index].poster_path}`}
-                title={movieList[index].title}
-                star={movieList[index].vote_average}
-                isSmall={true}
-              />
+              <Link to={`/movie/${movieList[index].title}`}>
+                <MovieBox
+                  movieImage={`https://image.tmdb.org/t/p/w500${movieList[index].poster_path}`}
+                  title={movieList[index].title}
+                  star={movieList[index].vote_average}
+                  isSmall={true}
+                />
+              </Link>
             ))}
           </MovieList>
         ) : (
