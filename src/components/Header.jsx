@@ -23,7 +23,7 @@ const Logo = styled.div`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: ${props => (props.isLogin ? 'yellow' : 'white')};
+  color: white;
 `;
 
 const Lists = styled.div`
@@ -44,21 +44,11 @@ export default function Header() {
         <NavLink to="/">UMC Movie</NavLink>
       </Logo>
       <Lists>
-        <NavLink to="/" isLogin={true} onClick={() => setIsClicked(!isClicked)}>
-          {isClicked ? '로그아웃' : '로그인'}
-        </NavLink>
-        <NavLink to="/popular" isLogin={false}>
-          Popular
-        </NavLink>
-        <NavLink to="/nowplaying" isLogin={false}>
-          Now Playing
-        </NavLink>
-        <NavLink to="/toprated" isLogin={false}>
-          Top rated
-        </NavLink>
-        <NavLink to="/upcoming" isLogin={false}>
-          Upcoming
-        </NavLink>
+        <NavLink to="/join">회원가입</NavLink>
+        <NavLink to="/popular">Popular</NavLink>
+        <NavLink to="/nowplaying">Now Playing</NavLink>
+        <NavLink to="/toprated">Top rated</NavLink>
+        <NavLink to="/upcoming">Upcoming</NavLink>
       </Lists>
     </Container>
   );

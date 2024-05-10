@@ -24,8 +24,6 @@ const MovieText = styled.div`
   margin-top: 8px;
   font-size: 15px;
   gap: 10px;
-  text-decoration: none;
-  border-bottom: none;
 `;
 
 const Title = styled.div`

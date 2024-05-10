@@ -9,6 +9,7 @@ import TopRatedPage from '../pages/topRated';
 import UpComingPage from '../pages/upComing';
 import DetailPage from './detail';
 import ErrorPage from './error';
+import LoginPage from './login';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" Component={MainPage} />
           <Route path="/join" Component={JoinPage} />
+          <Route path="/login" Component={LoginPage} />
           <Route path="/nowplaying" Component={NowPlayingPage} />
           <Route path="/popular" Component={PopularPage} />
           <Route path="/toprated" Component={TopRatedPage} />
