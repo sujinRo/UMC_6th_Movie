@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getMovieList } from '../apis/Movie';
 import { useQuery } from 'react-query';
@@ -90,9 +90,32 @@ const MovieList = styled.div`
   }
 `;
 
+const Loading = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+`;
+
 export default function MainPage() {
   const [search, setSearch] = useState('');
   const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearch(search);
+      setIsLoading(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+      setIsLoading(false);
+    };
+  }, [search]);
 
   const movieDetailList = useQuery(['movieDetail', search], () => getMovieList(search), {
     onSuccess: data => {
@@ -108,14 +131,6 @@ export default function MainPage() {
     setSearch(e.target.value);
   };
 
-  //debounce
-  function debounce(func, timeout = 300) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-    };
-  }
-
   return (
     <Container>
       <Banner>
@@ -129,16 +144,20 @@ export default function MainPage() {
         </FindBox>
         {search.trim() !== '' ? (
           <MovieList>
-            {movieList.map((key, index) => (
-              <Link to={`/movie/${movieList[index].title}`}>
-                <MovieBox
-                  movieImage={`https://image.tmdb.org/t/p/w500${movieList[index].poster_path}`}
-                  title={movieList[index].title}
-                  star={movieList[index].vote_average}
-                  isSmall={true}
-                />
-              </Link>
-            ))}
+            {isLoading ? (
+              movieList.map((key, index) => (
+                <Link to={`/movie/${movieList[index].title}`}>
+                  <MovieBox
+                    movieImage={`https://image.tmdb.org/t/p/w500${movieList[index].poster_path}`}
+                    title={movieList[index].title}
+                    star={movieList[index].vote_average}
+                    isSmall={true}
+                  />
+                </Link>
+              ))
+            ) : (
+              <Loading>데이터를 받아오는 중입니다...</Loading>
+            )}
           </MovieList>
         ) : (
           <></>
