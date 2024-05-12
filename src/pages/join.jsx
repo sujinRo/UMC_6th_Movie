@@ -48,7 +48,7 @@ const Btn = styled.input`
   height: 45px;
   border: transparent;
   border-radius: 22px;
-  background-color: ${props => (props.isValid ? '#e5b409' : 'white')};
+  background-color: ${props => (props.$isValid ? '#e5b409' : 'white')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,7 +237,7 @@ export default function JoinPage() {
           <ShowMsg $isError={isRePwd}>{rePwdMsg}</ShowMsg>
         </Part>
       </Form>
-      <Btn type="submit" onClick={onClickBtn} value={'제출하기'} isValid={isValid} />
+      <Btn type="submit" onClick={onClickBtn} value={'제출하기'} $isValid={isValid} />
       <TextBox>
         <Text>이미 아이디가 있으신가요?</Text>
         <NavLink to={'/login'}>로그인페이지로 이동하기</NavLink>
