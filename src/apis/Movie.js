@@ -32,3 +32,9 @@ export const getMovieList = async title => {
   const response = await axios.get(`${API_URL}/search/movie?query=${title}&api_key=${API_KEY}&language=ko-US&page=1`);
   return response.data;
 };
+
+//staffList api
+export const getStaffList = async id => {
+  const response = await axios.get(`${API_URL}/movie/${id}/credits?&api_key=${API_KEY}&language=ko-US&page=1`);
+  return response.data;
+};
