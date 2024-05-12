@@ -115,7 +115,6 @@ export default function JoinPage() {
   const [isValid, setIsValid] = useState(false);
 
   //유효성 검사
-  //이메일
   const isValidName = name => {
     if (name.trim() == '') {
       setNameMsg('이름을 입력해주세요!');
@@ -126,6 +125,8 @@ export default function JoinPage() {
       setIsName(true);
     }
   };
+
+  //이메일
   const isValidEmail = email => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

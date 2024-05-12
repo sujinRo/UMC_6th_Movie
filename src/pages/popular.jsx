@@ -21,37 +21,49 @@ const Box = styled.div`
   margin: 20px 0;
 `;
 
+const Loader = styled.div`
+  margin-top: 40vh;
+`;
+
 export default function PopularPage() {
   const [movieList, setMovieList] = useState([]);
-  const { isLoading } = useQuery('popularMovie', () => getPopularList(), {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const popularMovie = useQuery('popularMovie', () => getPopularList(), {
     onSuccess: data => {
       console.log(data.results);
       setMovieList(data.results);
+      setIsLoading(true);
     },
     onError: error => {
       console.log(error);
+      setIsLoading(false);
     },
   });
 
-  return isLoading ? (
+  return (
     <Container>
-      <Box>
-        {movieList.map((item, idx) => {
-          return (
-            <div key={idx}>
-              <MovieBox
-                link={`/movie/${item.id}`}
-                movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                title={item.title}
-                overview={item.overview}
-                star={item.vote_average}
-              />
-            </div>
-          );
-        })}
-      </Box>
+      {isLoading ? (
+        <Box>
+          {movieList.map((item, idx) => {
+            return (
+              <div key={idx}>
+                <MovieBox
+                  link={`/movie/${item.id}`}
+                  movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  title={item.title}
+                  overview={item.overview}
+                  star={item.vote_average}
+                />
+              </div>
+            );
+          })}
+        </Box>
+      ) : (
+        <Loader>
+          <Loading />
+        </Loader>
+      )}
     </Container>
-  ) : (
-    <Loading />
   );
 }
