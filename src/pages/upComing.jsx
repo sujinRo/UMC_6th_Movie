@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { getUpComingList } from '../apis/Movie';
 import MovieBox from '../components/MovieBox';
+import Loading from '../components/Loading';
 
 const Container = styled.div`
   color: white;
@@ -22,7 +23,7 @@ const Box = styled.div`
 
 export default function UpComingPage() {
   const [movieList, setMovieList] = useState([]);
-  const upComingMovieList = useQuery('upComingMovie', () => getUpComingList(), {
+  const { isLoading } = useQuery('upComingMovie', () => getUpComingList(), {
     onSuccess: data => {
       console.log(data.results);
       setMovieList(data.results);
@@ -32,7 +33,7 @@ export default function UpComingPage() {
     },
   });
 
-  return (
+  return isLoading ? (
     <Container>
       <Box>
         {movieList.map((item, idx) => {
@@ -50,5 +51,7 @@ export default function UpComingPage() {
         })}
       </Box>
     </Container>
+  ) : (
+    <Loading />
   );
 }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { getPopularList } from '../apis/Movie';
 import MovieBox from '../components/MovieBox';
+import Loading from '../components/Loading';
 
 const Container = styled.div`
   color: white;
@@ -22,7 +23,7 @@ const Box = styled.div`
 
 export default function PopularPage() {
   const [movieList, setMovieList] = useState([]);
-  const popularMovieList = useQuery('popularMovie', () => getPopularList(), {
+  const { isLoading } = useQuery('popularMovie', () => getPopularList(), {
     onSuccess: data => {
       console.log(data.results);
       setMovieList(data.results);
@@ -32,7 +33,7 @@ export default function PopularPage() {
     },
   });
 
-  return (
+  return isLoading ? (
     <Container>
       <Box>
         {movieList.map((item, idx) => {
@@ -50,5 +51,7 @@ export default function PopularPage() {
         })}
       </Box>
     </Container>
+  ) : (
+    <Loading />
   );
 }
