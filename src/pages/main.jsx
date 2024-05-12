@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getMovieList } from '../apis/Movie';
 import { useQuery } from 'react-query';
 import MovieBox from '../components/MovieBox';
-import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   color: white;
@@ -145,15 +144,15 @@ export default function MainPage() {
         {search.trim() !== '' ? (
           <MovieList>
             {isLoading ? (
-              movieList.map((key, index) => (
-                <Link to={`/movie/${movieList[index].title}`}>
-                  <MovieBox
-                    movieImage={`https://image.tmdb.org/t/p/w500${movieList[index].poster_path}`}
-                    title={movieList[index].title}
-                    star={movieList[index].vote_average}
-                    isSmall={true}
-                  />
-                </Link>
+              movieList.map(item => (
+                <MovieBox
+                  link={`/movie/${item.id}`}
+                  movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  title={item.title}
+                  overview={item.overview}
+                  star={item.vote_average}
+                  isSmall={true}
+                />
               ))
             ) : (
               <Loading>데이터를 받아오는 중입니다...</Loading>

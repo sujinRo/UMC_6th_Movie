@@ -24,8 +24,8 @@ export default function App() {
           <Route path="/popular" Component={PopularPage} />
           <Route path="/toprated" Component={TopRatedPage} />
           <Route path="/upcoming" Component={UpComingPage} />
-          <Route path="/movie/:title" Component={DetailPage} />
-          <Route path="*" Component={ErrorPage} />
+          <Route path="/movie/:id" Component={DetailPage} />
+          <Route path="/*" Component={ErrorPage} />
         </Routes>
       </div>
     </BrowserRouter>

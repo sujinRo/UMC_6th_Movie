@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getMovieList } from '../apis/Movie';
 import { useQuery } from 'react-query';
 
@@ -62,11 +62,11 @@ const Overview = styled.div`
 `;
 
 export default function DetailPage() {
-  const params = useParams();
+  const location = useLocation();
   const [movie, setMovie] = useState({});
   const star = [];
 
-  const movieDetailList = useQuery(['movieDetail', params.title], () => getMovieList(params.title), {
+  const movieDetailList = useQuery(['movieDetail', location.state?.title], () => getMovieList(location.state?.title), {
     onSuccess: data => {
       console.log(data.results);
       setMovie(data.results);
