@@ -53,13 +53,13 @@ export default function NowPlayingPage() {
 
   return (
     <Container>
-      {isLoading ? (
-        <Loader>
-          <Loading />
-        </Loader>
-      ) : (
-        <Movie>
-          <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+      <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+        {isLoading ? (
+          <Loader>
+            <Loading />
+          </Loader>
+        ) : (
+          <Movie>
             {' '}
             {/**hasMore: 데이터가 더 있는지, loadMore: 스크롤 내리면 실행될 함수 */}
             <Box>
@@ -81,9 +81,9 @@ export default function NowPlayingPage() {
                   }),
                 )}
             </Box>
-          </InfiniteScroll>
-        </Movie>
-      )}
+          </Movie>
+        )}
+      </InfiniteScroll>
     </Container>
   );
 }

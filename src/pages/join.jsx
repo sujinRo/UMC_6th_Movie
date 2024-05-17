@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
+import { postJoin } from '../apis/Join';
+import { useMutation } from 'react-query';
 
 const Container = styled.div`
   color: white;
@@ -228,13 +230,24 @@ export default function JoinPage() {
   }, [isName, isId, isEmail, isAge, isPwd, isRePwd]);
 
   const formData = {
-    name: { name },
-    id: { id },
-    email: { email },
-    age: { age },
-    pwd: { pwd },
-    rePwd: { rePwd },
+    name: name,
+    email: email,
+    age: age,
+    username: id,
+    password: pwd,
+    passwordCheck: rePwd,
   };
+
+  const postJoinQuery = useMutation(postJoin, {
+    onSuccess: data => {
+      console.log(data);
+      alert('로그인 성공!');
+      navigate('/login');
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
 
   const navigate = useNavigate();
   const onClickBtn = e => {
@@ -242,7 +255,7 @@ export default function JoinPage() {
 
     if (isValid) {
       console.log(formData);
-      navigate('/login');
+      postJoinQuery.mutate({ formData: formData });
     }
   };
 
