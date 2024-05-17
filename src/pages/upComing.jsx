@@ -58,7 +58,9 @@ export default function UpComingPage() {
   const [page, setPage] = useState(1);
   const [totalpage, setTotalPage] = useState(1);
 
-  const upComingMovie = useQuery(['upComingMovie', page], () => getUpComingList(page), {
+  const upComingMovie = useQuery({
+    queryKey: ['upComingMovie', page],
+    queryFn: () => getUpComingList(page),
     onSuccess: data => {
       console.log(data.results);
       setMovieList(data.results);

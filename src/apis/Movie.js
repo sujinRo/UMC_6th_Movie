@@ -4,7 +4,7 @@ export const API_KEY = '23129335d4e72895e00b227873f60824';
 export const API_URL = 'https://api.themoviedb.org/3/';
 
 //nowPlayingList api
-export const getNowPlayingList = async page => {
+export const getNowPlayingList = async (page = 1) => {
   const response = await axios.get(`${API_URL}/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${page}`);
   return response.data;
 };

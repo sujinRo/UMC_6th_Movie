@@ -58,7 +58,9 @@ export default function TopRatedPage() {
   const [page, setPage] = useState(1);
   const [totalpage, setTotalPage] = useState(1);
 
-  const topRatedList = useQuery(['topRatedMovie', page], () => getTopRatedList(page), {
+  const topRatedList = useQuery({
+    queryKey: ['topRatedMovie', page],
+    queryFn: () => getTopRatedList(page),
     onSuccess: data => {
       console.log(data.results);
       setMovieList(data.results);

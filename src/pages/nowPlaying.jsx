@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
+import InfiniteScroll from 'react-infinite-scroller';
 import { getNowPlayingList } from '../apis/Movie';
 import MovieBox from '../components/MovieBox';
 import Loading from '../components/Loading';
@@ -33,88 +34,55 @@ const Loader = styled.div`
   margin-top: 40vh;
 `;
 
-const Pagination = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 20px;
-  gap: 15px;
-`;
-
-const LeftButton = styled.div`
-  cursor: pointer;
-  visibility: ${props => (props.$isBelow ? 'hidden' : 'visible')};
-`;
-
-const RightButton = styled.div`
-  cursor: pointer;
-  visibility: ${props => (props.$isUpper ? 'hidden' : 'visible')};
-`;
-
 export default function NowPlayingPage() {
-  const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalpage, setTotalPage] = useState(1);
-
-  const nowPlayingMovie = useQuery(['nowplayingMovie', page], () => getNowPlayingList(page), {
-    onSuccess: data => {
-      console.log(data.results);
-      setMovieList(data.results);
-      setTotalPage(data.total_pages);
-      setIsLoading(true);
+  const { data, isLoading, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQuery(
+    /** */
+    ['nowplayingMovie'],
+    ({ pageParam = 1 }) => getNowPlayingList(pageParam),
+    {
+      getNextPageParam: lastPage => {
+        const nextPage = lastPage.page + 1;
+        return nextPage > lastPage.total_pages ? false : nextPage;
+      },
     },
+  );
 
-    onError: error => {
-      console.log(error);
-      setIsLoading(false);
-    },
+  useEffect(() => {
+    console.log(data);
   });
-
-  const onClickLeftBtn = () => {
-    setPage(old => Math.max(old - 1, 1));
-  };
-
-  const onClickRighttBtn = () => {
-    setPage(old => Math.min(old + 1, totalpage));
-  };
 
   return (
     <Container>
       {isLoading ? (
-        <>
-          <Movie>
-            <Box>
-              {movieList.map((item, idx) => {
-                return (
-                  <div key={idx}>
-                    <MovieBox
-                      link={`/movie/${item.id}`}
-                      movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                      title={item.title}
-                      overview={item.overview}
-                      star={item.vote_average}
-                    />
-                  </div>
-                );
-              })}
-            </Box>
-          </Movie>
-          <Pagination>
-            <LeftButton $isBelow={page === 1 ? true : false} onClick={onClickLeftBtn}>
-              〈
-            </LeftButton>{' '}
-            {page}
-            <RightButton $isUpper={page === totalpage ? true : false} onClick={onClickRighttBtn}>
-              〉
-            </RightButton>
-          </Pagination>
-        </>
-      ) : (
         <Loader>
           <Loading />
         </Loader>
+      ) : (
+        <Movie>
+          <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
+            {' '}
+            {/**hasMore: 데이터가 더 있는지, loadMore: 스크롤 내리면 실행될 함수 */}
+            <Box>
+              {isSuccess &&
+                /**data가 pages와 pageParam으로 이루어져있음 */
+                data.pages.map((page, pageIndex) =>
+                  page.results.map((item, idx) => {
+                    return (
+                      <div key={`${pageIndex}-${idx}`}>
+                        <MovieBox
+                          link={`/movie/${item.id}`}
+                          movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                          title={item.title}
+                          overview={item.overview}
+                          star={item.vote_average}
+                        />
+                      </div>
+                    );
+                  }),
+                )}
+            </Box>
+          </InfiniteScroll>
+        </Movie>
       )}
     </Container>
   );

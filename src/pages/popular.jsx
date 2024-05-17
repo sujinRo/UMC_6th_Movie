@@ -58,9 +58,11 @@ export default function PopularPage() {
   const [page, setPage] = useState(1);
   const [totalpage, setTotalPage] = useState(1);
 
-  const popularMovie = useQuery(['popularMovie', page], () => getPopularList(page), {
+  const popularMovie = useQuery({
+    queryKey: ['popularMovie', page],
+    queryFn: () => getPopularList(page),
     onSuccess: data => {
-      console.log(data.results);
+      console.log(data);
       setMovieList(data.results);
       setTotalPage(data.total_pages);
       setIsLoading(true);
