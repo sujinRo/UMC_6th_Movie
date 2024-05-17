@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from 'react-query';
 import styled from 'styled-components';
+import { postLogin } from '../apis/Join';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   color: white;
@@ -120,10 +123,6 @@ export default function LoginPage() {
     }
   };
 
-  const onClickBtn = e => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     isValidId(id);
     isValidPwd(pwd);
@@ -134,6 +133,25 @@ export default function LoginPage() {
       setIsValid(true);
     }
   }, [isId, isPwd]);
+
+  const formData = {
+    username: id,
+    password: pwd,
+  };
+
+  const navigate = useNavigate();
+
+  const postLoginQuery = useMutation(postLogin, {
+    onSuccess: data => {
+      console.log(data);
+      navigate('/');
+    },
+  });
+
+  const onClickBtn = e => {
+    e.preventDefault();
+    postLoginQuery.mutate({ formData: formData });
+  };
 
   return (
     <Container>

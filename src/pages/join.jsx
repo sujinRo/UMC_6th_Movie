@@ -238,10 +238,12 @@ export default function JoinPage() {
     passwordCheck: rePwd,
   };
 
+  const navigate = useNavigate();
+
   const postJoinQuery = useMutation(postJoin, {
     onSuccess: data => {
       console.log(data);
-      alert('로그인 성공!');
+      alert('회원가입 성공!');
       navigate('/login');
     },
     onError: error => {
@@ -249,7 +251,6 @@ export default function JoinPage() {
     },
   });
 
-  const navigate = useNavigate();
   const onClickBtn = e => {
     e.preventDefault();
 
