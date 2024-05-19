@@ -144,7 +144,9 @@ export default function LoginPage() {
   const postLoginQuery = useMutation(postLogin, {
     onSuccess: data => {
       console.log(data);
+      window.localStorage.setItem('token', JSON.stringify(data.token));
       navigate('/');
+      window.location.reload();
     },
   });
 

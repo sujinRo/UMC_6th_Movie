@@ -248,6 +248,11 @@ export default function JoinPage() {
     },
     onError: error => {
       console.log(error);
+      if (error.message == 'Request failed with status code 409') {
+        alert('이미 존재하는 아이디입니다.');
+      } else if (error.message == 'Request failed with status code 400') {
+        alert('비밀번호가 일치하지 않습니다.');
+      }
     },
   });
 
