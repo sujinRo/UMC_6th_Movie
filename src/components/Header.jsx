@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { media } from '../styles/media';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import MenuBar from './MenuBar';
 
 const Container = styled.div`
   width: 100%;
@@ -58,8 +59,18 @@ const Icon = styled.div`
   margin-right: 20px;
 `;
 
+const Bar = styled.div`
+  ${media.desktop`
+  display: none;
+  `}
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+`;
+
 export default function Header() {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -72,28 +83,41 @@ export default function Header() {
     setIsLogin(false);
   };
 
+  const onClickMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <Container>
-      <Logo>
-        <NavLink to="/">UMC Movie</NavLink>
-      </Logo>
-      <Lists>
-        {isLogin ? (
-          <Logout onClick={onClick}>로그아웃</Logout>
-        ) : (
-          <>
-            <NavLink to="/login">로그인</NavLink>
-            <NavLink to="/join">회원가입</NavLink>
-          </>
-        )}
-        <NavLink to="/popular">Popular</NavLink>
-        <NavLink to="/nowplaying">Now Playing</NavLink>
-        <NavLink to="/toprated">Top rated</NavLink>
-        <NavLink to="/upcoming">Upcoming</NavLink>
-      </Lists>
-      <Icon>
-        <RxHamburgerMenu size="23" />
-      </Icon>
-    </Container>
+    <>
+      <Container>
+        <Logo>
+          <NavLink to="/">UMC Movie</NavLink>
+        </Logo>
+        <Lists>
+          {isLogin ? (
+            <Logout onClick={onClick}>로그아웃</Logout>
+          ) : (
+            <>
+              <NavLink to="/login">로그인</NavLink>
+              <NavLink to="/join">회원가입</NavLink>
+            </>
+          )}
+          <NavLink to="/popular">Popular</NavLink>
+          <NavLink to="/nowplaying">Now Playing</NavLink>
+          <NavLink to="/toprated">Top rated</NavLink>
+          <NavLink to="/upcoming">Upcoming</NavLink>
+        </Lists>
+        <Icon onClick={onClickMenu}>
+          <RxHamburgerMenu size="23" />
+        </Icon>
+      </Container>
+      {isOpen ? (
+        <Bar>
+          <MenuBar />
+        </Bar>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
