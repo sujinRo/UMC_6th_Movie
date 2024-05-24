@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { media } from '../styles/media';
 import { Link } from 'react-router-dom';
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Container = styled.div`
   width: 100%;
@@ -44,10 +45,17 @@ const Lists = styled.div`
   ${NavLink}:hover {
   font-size: 15px;}
   `}
-  ${media.tablet`
-  display: none;`}
-  ${media.phone`
-  display: none;`}
+  display: none;
+`;
+
+const Icon = styled.div`
+  ${media.desktop`
+  display: none;
+  `}
+  display: flex;
+  justify-content: right;
+  color: white;
+  margin-right: 20px;
 `;
 
 export default function Header() {
@@ -83,6 +91,9 @@ export default function Header() {
         <NavLink to="/toprated">Top rated</NavLink>
         <NavLink to="/upcoming">Upcoming</NavLink>
       </Lists>
+      <Icon>
+        <RxHamburgerMenu size="23" />
+      </Icon>
     </Container>
   );
 }
