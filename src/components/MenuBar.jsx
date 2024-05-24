@@ -12,6 +12,8 @@ const Container = styled.div`
   z-index: 20;
   top: 0;
   left: 0;
+  transform: ${props => (props.isOpen ? 'translateX(0)' : 'translateX(100%)')};
+  transition: transform 0.5s ease;
 `;
 
 const NavLink = styled(Link)`
@@ -81,37 +83,31 @@ export default function MenuBar({ isOpen, setIsOpen }) {
   };
 
   return (
-    <>
-      {isOpen ? (
-        <Container>
-          {isLogin ? (
-            <Logout onClick={onClick}>로그아웃</Logout>
-          ) : (
-            <>
-              <NavLink to="/login" onClick={onClickLink} pathname={pathname == 'login'}>
-                로그인
-              </NavLink>
-              <NavLink to="/join" onClick={onClickLink} pathname={pathname == 'join'}>
-                회원가입
-              </NavLink>
-            </>
-          )}
-          <NavLink to="/popular" onClick={onClickLink} pathname={pathname == 'popular'}>
-            Popular
-          </NavLink>
-          <NavLink to="/nowplaying" onClick={onClickLink} pathname={pathname == 'nowplaying'}>
-            Now Playing
-          </NavLink>
-          <NavLink to="/toprated" onClick={onClickLink} pathname={pathname == 'toprated'}>
-            Top rated
-          </NavLink>
-          <NavLink to="/upcoming" onClick={onClickLink} pathname={pathname == 'upcoming'}>
-            Upcoming
-          </NavLink>
-        </Container>
+    <Container isOpen={isOpen}>
+      {isLogin ? (
+        <Logout onClick={onClick}>로그아웃</Logout>
       ) : (
-        <></>
+        <>
+          <NavLink to="/login" onClick={onClickLink} pathname={pathname == 'login'}>
+            로그인
+          </NavLink>
+          <NavLink to="/join" onClick={onClickLink} pathname={pathname == 'join'}>
+            회원가입
+          </NavLink>
+        </>
       )}
-    </>
+      <NavLink to="/popular" onClick={onClickLink} pathname={pathname == 'popular'}>
+        Popular
+      </NavLink>
+      <NavLink to="/nowplaying" onClick={onClickLink} pathname={pathname == 'nowplaying'}>
+        Now Playing
+      </NavLink>
+      <NavLink to="/toprated" onClick={onClickLink} pathname={pathname == 'toprated'}>
+        Top rated
+      </NavLink>
+      <NavLink to="/upcoming" onClick={onClickLink} pathname={pathname == 'upcoming'}>
+        Upcoming
+      </NavLink>
+    </Container>
   );
 }
