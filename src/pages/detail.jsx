@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getMovieList, getStaffList } from '../apis/Movie';
 import { useQuery } from 'react-query';
 import Loading from '../components/Loading';
+import { media } from '../styles/media';
 
 const Container = styled.div`
   color: white;
@@ -28,6 +29,9 @@ const DetailBox = styled.div`
   padding: 100px 0;
   position: relative;
   display: flex;
+  flex-direction: column;
+  ${media.desktop`
+  flex-direction: row;`}
   justify-content: center;
   align-items: center;
   gap: 60px;
@@ -68,7 +72,12 @@ const OverviewBox = styled.div`
 
 const Overview = styled.div`
   font-size: 13px;
-  width: 600px;
+  ${media.desktop`
+  width: 600px;`}
+  ${media.tablet`
+  width: 400px;`}
+  ${media.phone`
+  width: 300px;`}
 `;
 
 const CastBox = styled.div`
@@ -83,8 +92,14 @@ const CastBox = styled.div`
 
 const PersonBox = styled.div`
   margin-top: 18px;
-  width: 1100px;
+  ${media.desktop`
+  width: 1100px;`}
+  ${media.tablet`
+  width: 700px;`}
+  ${media.phone`
+  width: 300px;`}
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
 `;
