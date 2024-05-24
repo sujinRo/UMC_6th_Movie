@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { media } from '../styles/media';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import MenuBar from './MenuBar';
 
@@ -26,7 +26,7 @@ const Logo = styled.div`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: ${props => (props.pathname ? ' #e5b409' : 'white')};
 `;
 
 const Logout = styled.div`
@@ -71,11 +71,37 @@ const Bar = styled.div`
 export default function Header() {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
   const [isOpen, setIsOpen] = useState(false);
+  const [pathname, setPathname] = useState('main');
+  const location = useLocation();
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
     setIsLogin(token);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname == '/') {
+      setPathname('main');
+    }
+    if (location.pathname == '/login') {
+      setPathname('login');
+    }
+    if (location.pathname == '/join') {
+      setPathname('join');
+    }
+    if (location.pathname == '/popular') {
+      setPathname('popular');
+    }
+    if (location.pathname == '/nowplaying') {
+      setPathname('nowplaying');
+    }
+    if (location.pathname == '/toprated') {
+      setPathname('toprated');
+    }
+    if (location.pathname == '/upcoming') {
+      setPathname('upcoming');
+    }
+  }, [location.pathname]);
 
   const onClick = () => {
     localStorage.removeItem('token');
@@ -91,21 +117,35 @@ export default function Header() {
     <>
       <Container>
         <Logo>
-          <NavLink to="/">UMC Movie</NavLink>
+          <NavLink to="/" onClick={() => setIsOpen(false)}>
+            UMC Movie
+          </NavLink>
         </Logo>
         <Lists>
           {isLogin ? (
             <Logout onClick={onClick}>로그아웃</Logout>
           ) : (
             <>
-              <NavLink to="/login">로그인</NavLink>
-              <NavLink to="/join">회원가입</NavLink>
+              <NavLink to="/login" pathname={pathname == 'login'}>
+                로그인
+              </NavLink>
+              <NavLink to="/join" pathname={pathname == 'join'}>
+                회원가입
+              </NavLink>
             </>
           )}
-          <NavLink to="/popular">Popular</NavLink>
-          <NavLink to="/nowplaying">Now Playing</NavLink>
-          <NavLink to="/toprated">Top rated</NavLink>
-          <NavLink to="/upcoming">Upcoming</NavLink>
+          <NavLink to="/popular" pathname={pathname == 'popular'}>
+            Popular
+          </NavLink>
+          <NavLink to="/nowplaying" pathname={pathname == 'nowplaying'}>
+            Now Playing
+          </NavLink>
+          <NavLink to="/toprated" pathname={pathname == 'toprated'}>
+            Top rated
+          </NavLink>
+          <NavLink to="/upcoming" pathname={pathname == 'upcoming'}>
+            Upcoming
+          </NavLink>
         </Lists>
         <Icon onClick={onClickMenu}>
           <RxHamburgerMenu size="23" />

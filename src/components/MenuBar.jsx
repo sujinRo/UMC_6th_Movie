@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -21,7 +21,7 @@ const NavLink = styled(Link)`
   align-items: center;
   justify-content: left;
   padding-left: 20px;
-  color: white;
+  color: ${props => (props.pathname ? ' #e5b409' : 'white')};
   text-decoration: none;
   font-weight: 600;
 `;
@@ -37,11 +37,37 @@ const Logout = styled.div`
 
 export default function MenuBar({ isOpen, setIsOpen }) {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
+  const [pathname, setPathname] = useState('main');
+  const location = useLocation();
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
     setIsLogin(token);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname == '/') {
+      setPathname('main');
+    }
+    if (location.pathname == '/login') {
+      setPathname('login');
+    }
+    if (location.pathname == '/join') {
+      setPathname('join');
+    }
+    if (location.pathname == '/popular') {
+      setPathname('popular');
+    }
+    if (location.pathname == '/nowplaying') {
+      setPathname('nowplaying');
+    }
+    if (location.pathname == '/toprated') {
+      setPathname('toprated');
+    }
+    if (location.pathname == '/upcoming') {
+      setPathname('upcoming');
+    }
+  }, [location.pathname]);
 
   const onClick = () => {
     localStorage.removeItem('token');
@@ -62,24 +88,24 @@ export default function MenuBar({ isOpen, setIsOpen }) {
             <Logout onClick={onClick}>로그아웃</Logout>
           ) : (
             <>
-              <NavLink to="/login" onClick={onClickLink}>
+              <NavLink to="/login" onClick={onClickLink} pathname={pathname == 'login'}>
                 로그인
               </NavLink>
-              <NavLink to="/join" onClick={onClickLink}>
+              <NavLink to="/join" onClick={onClickLink} pathname={pathname == 'join'}>
                 회원가입
               </NavLink>
             </>
           )}
-          <NavLink to="/popular" onClick={onClickLink}>
+          <NavLink to="/popular" onClick={onClickLink} pathname={pathname == 'popular'}>
             Popular
           </NavLink>
-          <NavLink to="/nowplaying" onClick={onClickLink}>
+          <NavLink to="/nowplaying" onClick={onClickLink} pathname={pathname == 'nowplaying'}>
             Now Playing
           </NavLink>
-          <NavLink to="/toprated" onClick={onClickLink}>
+          <NavLink to="/toprated" onClick={onClickLink} pathname={pathname == 'toprated'}>
             Top rated
           </NavLink>
-          <NavLink to="/upcoming" onClick={onClickLink}>
+          <NavLink to="/upcoming" onClick={onClickLink} pathname={pathname == 'upcoming'}>
             Upcoming
           </NavLink>
         </Container>
