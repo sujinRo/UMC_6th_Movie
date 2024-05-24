@@ -44,7 +44,8 @@ const Lists = styled.div`
   gap: 40px;
   margin-right: 20px;
   ${NavLink}:hover {
-  font-size: 15px;}
+  font-size: 15px;
+  color: #e5b409;}
   `}
   display: none;
 `;
@@ -64,8 +65,7 @@ const Bar = styled.div`
   display: none;
   `}
   width: 100%;
-  position: fixed;
-  z-index: 1;
+  height: 100%;
 `;
 
 export default function Header() {
@@ -111,13 +111,9 @@ export default function Header() {
           <RxHamburgerMenu size="23" />
         </Icon>
       </Container>
-      {isOpen ? (
-        <Bar>
-          <MenuBar />
-        </Bar>
-      ) : (
-        <></>
-      )}
+      <Bar>
+        <MenuBar isOpen={isOpen} setIsOpen={setIsOpen} />
+      </Bar>
     </>
   );
 }

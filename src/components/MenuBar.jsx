@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
-  heigth: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: rgb(37, 50, 100);
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
 `;
 
 const NavLink = styled(Link)`
@@ -31,7 +35,7 @@ const Logout = styled.div`
   }
 `;
 
-export default function MenuBar() {
+export default function MenuBar({ isOpen, setIsOpen }) {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
 
   useEffect(() => {
@@ -43,22 +47,45 @@ export default function MenuBar() {
     localStorage.removeItem('token');
     window.location.reload();
     setIsLogin(false);
+    setIsOpen(false);
+  };
+
+  const onClickLink = () => {
+    setIsOpen(false);
   };
 
   return (
-    <Container>
-      {isLogin ? (
-        <Logout onClick={onClick}>로그아웃</Logout>
+    <>
+      {isOpen ? (
+        <Container>
+          {isLogin ? (
+            <Logout onClick={onClick}>로그아웃</Logout>
+          ) : (
+            <>
+              <NavLink to="/login" onClick={onClickLink}>
+                로그인
+              </NavLink>
+              <NavLink to="/join" onClick={onClickLink}>
+                회원가입
+              </NavLink>
+            </>
+          )}
+          <NavLink to="/popular" onClick={onClickLink}>
+            Popular
+          </NavLink>
+          <NavLink to="/nowplaying" onClick={onClickLink}>
+            Now Playing
+          </NavLink>
+          <NavLink to="/toprated" onClick={onClickLink}>
+            Top rated
+          </NavLink>
+          <NavLink to="/upcoming" onClick={onClickLink}>
+            Upcoming
+          </NavLink>
+        </Container>
       ) : (
-        <>
-          <NavLink to="/login">로그인</NavLink>
-          <NavLink to="/join">회원가입</NavLink>
-        </>
+        <></>
       )}
-      <NavLink to="/popular">Popular</NavLink>
-      <NavLink to="/nowplaying">Now Playing</NavLink>
-      <NavLink to="/toprated">Top rated</NavLink>
-      <NavLink to="/upcoming">Upcoming</NavLink>
-    </Container>
+    </>
   );
 }
