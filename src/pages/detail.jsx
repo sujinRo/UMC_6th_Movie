@@ -135,6 +135,7 @@ export default function DetailPage() {
   const params = useParams();
   const [movie, setMovie] = useState({});
   const [staffList, setStaffList] = useState([]);
+  const [crewList, setCrewList] = useState([]);
   const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [isStaffLoading, setIsStaffLoading] = useState(false);
   const star = [];
@@ -155,6 +156,7 @@ export default function DetailPage() {
     onSuccess: data => {
       console.log(data.cast);
       setStaffList(data.cast);
+      setCrewList(data.crew);
       setIsStaffLoading(true);
     },
     onError: error => {
@@ -206,6 +208,18 @@ export default function DetailPage() {
             <Title>출연진 및 제작진</Title>
             <PersonBox>
               {staffList.map(item => (
+                <ProfileBox>
+                  <Profile
+                    src={
+                      item.profile_path
+                        ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                        : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz7ztleRwzXhFdiwBYqZ8cib9RvEsukVVUS3niN1YQ&s`
+                    }
+                  />
+                  <ProfileText>{item.name}</ProfileText>
+                </ProfileBox>
+              ))}
+              {crewList.map(item => (
                 <ProfileBox>
                   <Profile
                     src={
