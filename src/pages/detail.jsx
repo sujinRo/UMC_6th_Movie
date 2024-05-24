@@ -24,14 +24,14 @@ const OpacityBox = styled.div`
 `;
 
 const DetailBox = styled.div`
+  ${media.desktop`
+  flex-direction: row;`}
   width: 100%;
   height: 100%;
   padding: 100px 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  ${media.desktop`
-  flex-direction: row;`}
   justify-content: center;
   align-items: center;
   gap: 60px;
