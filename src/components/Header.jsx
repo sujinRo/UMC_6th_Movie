@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { media } from '../styles/media';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
@@ -35,14 +36,20 @@ const Logout = styled.div`
 `;
 
 const Lists = styled.div`
-  font-size: 14px;
+  ${media.desktop`
   display: flex;
+  font-size: 14px;
   gap: 40px;
   margin-right: 20px;
   ${NavLink}:hover {
-    font-size: 15px;
-  }
+  font-size: 15px;}
+  `}
+  ${media.tablet`
+  display: none;`}
+  ${media.phone`
+  display: none;`}
 `;
+
 export default function Header() {
   const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token'));
 
