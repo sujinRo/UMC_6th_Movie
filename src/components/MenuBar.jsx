@@ -10,7 +10,7 @@ const Container = styled.div`
   background-color: rgb(37, 50, 100);
   position: fixed;
   z-index: 20;
-  top: 0;
+  top: 65px;
   left: 0;
   transform: ${props => (props.isOpen ? 'translateX(0)' : 'translateX(100%)')};
   transition: transform 0.5s ease;
